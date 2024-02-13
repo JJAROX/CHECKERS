@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  width: 100%;
+  height: 10vh;
+  background-color: rgb(106, 106, 106);
+  display: inline-flex;
+}
+
+.navbar-header {
+  align-self: center;
+  margin-left: 35px;
+  color: white;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.span-username {
+  color: yellow;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.dialog-js {
+  margin: auto;
+  margin-top: 100px;
+  border: none;
+  background-color: rgba(57, 54, 56, 0.9);
+  height: 47.5vh;
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.h1-dialog {
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 50px;
+  font-weight: 300;
+  font-size: 40px;
+}
+
+.nickname-input {
+  padding: 10px;
+  border: 2px solid white;
+  background-color: transparent;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  margin: 10px;
+  margin-top: 50px;
+  font-size: 25px;
+  width: 250px;
+}
+
+.dialog-btn {
+  padding: 10px;
+  width: 250px;
+  background-color: white;
+  color: black;
+  border: none;
+  margin: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.dialog-btn:hover {
+  background-color: rgb(213, 213, 213);
+}
+
+.reset-info {
+  height: 50vh;
+  width: 50vw;
+  background-color: red;
+  margin: auto;
+}
+
+body {
+  overflow: hidden;
+}
