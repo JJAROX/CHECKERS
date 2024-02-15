@@ -17,10 +17,15 @@ app.get("/", (req, res) => {
 
 app.post("/addUser", (req, res) => {
   let data = req.body
+  const userExist = 'Taki użytkownik już istnieje, spróbuj ponownie'
+  if (users.includes(data.username)) {
+    res.json({ userExist })
+  } else {
+    users.push(data.username)
+    res.json({ users })
+  }
   console.log(data.username);
-  users.push(data.username)
   console.log(users);
-  res.json({ users })
 
 })
 app.post("/resetUsers", (req, res) => {
