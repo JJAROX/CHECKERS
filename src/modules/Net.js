@@ -1,5 +1,6 @@
 import { Vector3 } from "three";
-import { GameObject, renderer, camera } from "./Game";
+import { GameObject, renderer, camera, ico } from "./Game";
+import PlainGeometry from "./Field";
 const dialogEl = document.querySelector('.dialog-js')
 const allNetFunctions = {
 
@@ -23,6 +24,8 @@ const allNetFunctions = {
         const spanEl = document.createElement('span')
         const info = document.createElement('h1')
         if (data.users) {
+          const plainGeometry = new PlainGeometry()
+          plainGeometry.addPawns()
           if (h1El) {
             h1El.remove()
           }
@@ -39,18 +42,20 @@ const allNetFunctions = {
           spanEl.append(data.users[data.users.length - 1])
           console.log(spanEl);
           if (data.users.length == 1) {
+            ico.plain = plainGeometry.plain
+            ico.scene.add(ico.plain)
             info.append(`Witaj` + " ")
             info.appendChild(spanEl)
             info.append(', grasz białymi')
             navbar.append(USER_ADDED)
             navbar.append(info)
-            camera.threeCamera.rotateY(0)
             camera.updateSize(renderer);
-            console.log(allNetFunctions.whitePlayer);
             GameObject.render()
 
           }
           else if (data.users.length == 2) {
+            ico.plain = plainGeometry.plain
+            ico.scene.add(ico.plain)
             info.append(`Witaj` + " ")
             info.appendChild(spanEl)
             info.append(', grasz czarnymi')
@@ -59,7 +64,6 @@ const allNetFunctions = {
             camera.threeCamera.position.set(0, 29.5, -21);
             camera.threeCamera.lookAt(new Vector3(0, -28, 53));
             camera.updateSize(renderer);
-            console.log(allNetFunctions.blackPlayer);
             GameObject.render()
 
           } else {
@@ -73,10 +77,12 @@ const allNetFunctions = {
             navbar.append(info)
           }
         } else if (data.userExist !== undefined) {
-          while (info.firstChild) {
-            info.removeChild(info.firstChild);
+          while (navbar.firstChild) {
+            navbar.removeChild(navbar.firstChild);
           }
-          h1El.remove()
+          if (h1El) {
+            h1El.remove()
+          }
           dialogEl.showModal()
           dialogEl.style.display = 'flex'
           info.append(`${data.userExist}` + " ")
