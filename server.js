@@ -36,3 +36,8 @@ app.post("/resetUsers", (req, res) => {
 
 })
 
+app.post("/checkUsers", (req, res) => {
+  res.json({ users })
+
+})
+

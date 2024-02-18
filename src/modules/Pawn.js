@@ -4,7 +4,6 @@ import { Mesh, CylinderGeometry, MeshBasicMaterial } from "three";
 
 export default class Pawn extends Mesh {
   constructor() {
-    // Wywołanie konstruktora klasy bazowej (Mesh)
     super();
 
     const geometry = new CylinderGeometry(4, 4, 4, 28);

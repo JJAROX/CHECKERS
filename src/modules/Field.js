@@ -23,19 +23,11 @@ export default class PlainGeometry {
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         const isBlack = szachownica[i][j] === 0;
-        // console.log(`[${i}][${j}] = ${szachownica[i][j]}, isBlack: ${isBlack}`)
         const geometry = new BoxGeometry(this.squareSize, 0.1, this.squareSize)
         const material = new MeshBasicMaterial({ map: isBlack ? blackTexture : whiteTexture })
         const mesh = new Mesh(geometry, material);
         mesh.position.set((-j + 3.5) * this.squareSize * 1, -1, i * this.squareSize * 1)
         this.plainObj.add(mesh)
-
-        // const isBrownPawn = pionki[i][j] === 2
-        // const isWheatPawn = pionki[i][j] === 1
-        // console.log(`[${i}][${j}] = ${pionki[i][j]}, isBrownPawn: ${isBrownPawn}`)
-        // console.log(`[${i}][${j}] = ${pionki[i][j]}, isWheatPawn: ${isWheatPawn}`)
-
-
       }
     }
     this.plain = this.plainObj
@@ -50,12 +42,14 @@ export default class PlainGeometry {
           pawn.position.set((-j + 3.5) * this.squareSize * 1, 0, i * this.squareSize * 1);
           const wheatTexture = new MeshBasicMaterial({ map: textureLoader.load(wheattexture) });
           pawn.children[0].material = wheatTexture;
+          pawn.color = 'white'
           this.plainObj.add(pawn);
         } else if (pionki[i][j] === 2) {
           const pawn = new Pawn();
           pawn.position.set((-j + 3.5) * this.squareSize * 1, 0, i * this.squareSize * 1);
           const brownMaterial = new MeshBasicMaterial({ map: textureLoader.load(browntexture) });
           pawn.children[0].material = brownMaterial;
+          pawn.color = 'black'
           this.plainObj.add(pawn);
         } else {
 

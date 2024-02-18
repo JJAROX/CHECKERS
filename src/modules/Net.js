@@ -1,5 +1,6 @@
 import { Vector3 } from "three";
 import { GameObject, renderer, camera, ico } from "./Game";
+import gif from '../gfx/waiting.gif'
 import PlainGeometry from "./Field";
 const dialogEl = document.querySelector('.dialog-js')
 const allNetFunctions = {
@@ -41,21 +42,67 @@ const allNetFunctions = {
           USER_ADDED.classList.add('navbar-header')
           spanEl.append(data.users[data.users.length - 1])
           console.log(spanEl);
+          ico.plain = plainGeometry.plain
+          ico.scene.add(ico.plain)
           if (data.users.length == 1) {
-            ico.plain = plainGeometry.plain
-            ico.scene.add(ico.plain)
+            function checkUsers() {
+              let usersArray = false
+              const interval = setInterval(() => {
+                let data = "e"
+                const options = {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "text/plain"
+                  },
+                  body: data
+                };
+                fetch("/checkUsers", options)
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log(data.users.length);
+                    if (data.users.length === 2 && !usersArray) {
+                      while (navbar.firstChild) {
+                        navbar.removeChild(navbar.firstChild);
+                      }
+                      const spanEl2 = document.createElement('span')
+                      spanEl2.classList.add('span-username-2')
+                      spanEl2.append(data.users[data.users.length - 1])
+                      waitingScreen.style.display = 'None'
+                      info.append(', podłączył się gracz ')
+                      info.appendChild(spanEl2)
+                      info.append(', gra czarnymi')
+                      navbar.append(USER_ADDED)
+                      navbar.append(info)
+                      usersArray = true
+                    } else if (usersArray === true) {
+                      clearInterval(interval)
+                    }
+                  })
+                  .catch(error => console.error(error))
+              }, 1000)
+            }
+            checkUsers()
+            const waitingScreen = document.createElement('div')
+            const waitingInfo = document.createElement('p')
+            const waitingGif = document.createElement('img')
+            waitingGif.src = gif
+            waitingInfo.append('Czekaj na drugiego gracza...')
+            waitingScreen.classList.add('waiting-screen')
+            waitingInfo.classList.add('waiting-p')
+            waitingGif.classList.add('waiting-img')
+            waitingScreen.appendChild(waitingInfo)
+            waitingScreen.appendChild(waitingGif)
             info.append(`Witaj` + " ")
             info.appendChild(spanEl)
             info.append(', grasz białymi')
             navbar.append(USER_ADDED)
             navbar.append(info)
+            document.body.appendChild(waitingScreen)
             camera.updateSize(renderer);
             GameObject.render()
 
           }
           else if (data.users.length == 2) {
-            ico.plain = plainGeometry.plain
-            ico.scene.add(ico.plain)
             info.append(`Witaj` + " ")
             info.appendChild(spanEl)
             info.append(', grasz czarnymi')
@@ -67,13 +114,17 @@ const allNetFunctions = {
             GameObject.render()
 
           } else {
+            const TOO_MANY_USERS = document.createElement('h1')
             dialogEl.showModal()
             dialogEl.style.display = 'flex'
+            TOO_MANY_USERS.append('TOO_MANY_USERS')
+            TOO_MANY_USERS.classList.add('navbar-header')
             info.append(`Aktualnie gra już dwóch graczy, spróbuj następnym razem` + " ")
             info.appendChild(spanEl)
-            info.style.alignSelf = 'center'
+            // info.style.alignSelf = 'center'
             info.style.color = 'red'
-            navbar.style.justifyContent = 'center'
+            // navbar.style.justifyContent = 'center'
+            navbar.append(TOO_MANY_USERS)
             navbar.append(info)
           }
         } else if (data.userExist !== undefined) {
