@@ -1,5 +1,3 @@
-
-
 import { Mesh, CylinderGeometry, MeshBasicMaterial } from "three";
 
 export default class Pawn extends Mesh {
@@ -13,6 +11,7 @@ export default class Pawn extends Mesh {
     const pawnMesh = new Mesh(geometry, material);
 
     this.add(pawnMesh);
+
   }
 }
 

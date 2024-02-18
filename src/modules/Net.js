@@ -1,7 +1,8 @@
-import { Vector3 } from "three";
-import { GameObject, renderer, camera, ico } from "./Game";
+import { Vector3, Vector2, Raycaster } from "three";
+import { GameObject, renderer, camera, ico, scene } from "./Game";
 import gif from '../gfx/waiting.gif'
 import PlainGeometry from "./Field";
+import Pawn from "./Pawn";
 const dialogEl = document.querySelector('.dialog-js')
 const allNetFunctions = {
 
@@ -42,8 +43,10 @@ const allNetFunctions = {
           USER_ADDED.classList.add('navbar-header')
           spanEl.append(data.users[data.users.length - 1])
           console.log(spanEl);
-          ico.plain = plainGeometry.plain
-          ico.scene.add(ico.plain)
+          if (data.users.length == 1 || data.users.length == 2) {
+            ico.plain = plainGeometry.plain
+            ico.scene.add(ico.plain)
+          }
           if (data.users.length == 1) {
             function checkUsers() {
               let usersArray = false

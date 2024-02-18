@@ -1,11 +1,10 @@
-import { BoxGeometry, MeshBasicMaterial, Mesh, Object3D, TextureLoader, DirectionalLight, SRGBColorSpace } from 'three';
-import { szachownica, pionki } from './Game';
+import { BoxGeometry, MeshBasicMaterial, Mesh, Object3D, TextureLoader, DirectionalLight, SRGBColorSpace, Raycaster, Vector2 } from 'three';
+import { szachownica, pionki, camera } from './Game';
 import blackNygga from "../mats/blacktexture.jpg"
 import tapeciak from "../mats/tapetajpg.jpg"
 import browntexture from "../mats/czarny_pionek.jpg"
 import wheattexture from "../mats/biały_pionek.jpg"
 import Pawn from './Pawn';
-
 
 export default class PlainGeometry {
   constructor() {
@@ -31,7 +30,10 @@ export default class PlainGeometry {
       }
     }
     this.plain = this.plainObj
-
+    this.pawns = []
+    this.raycaster = new Raycaster()
+    this.mouse = new Vector2()
+    document.addEventListener('mousedown', this.onMouseDown.bind(this), false);
   }
   addPawns() {
     const textureLoader = new TextureLoader()
@@ -42,19 +44,31 @@ export default class PlainGeometry {
           pawn.position.set((-j + 3.5) * this.squareSize * 1, 0, i * this.squareSize * 1);
           const wheatTexture = new MeshBasicMaterial({ map: textureLoader.load(wheattexture) });
           pawn.children[0].material = wheatTexture;
-          pawn.color = 'white'
+          this.pawns.push(pawn)
           this.plainObj.add(pawn);
         } else if (pionki[i][j] === 2) {
           const pawn = new Pawn();
           pawn.position.set((-j + 3.5) * this.squareSize * 1, 0, i * this.squareSize * 1);
           const brownMaterial = new MeshBasicMaterial({ map: textureLoader.load(browntexture) });
           pawn.children[0].material = brownMaterial;
-          pawn.color = 'black'
+          this.pawns.push(pawn)
           this.plainObj.add(pawn);
         } else {
 
         }
       }
+    }
+  }
+  onMouseDown(event) {
+    this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+    this.raycaster.setFromCamera(this.mouse, camera.threeCamera)
+    const intersects = this.raycaster.intersectObjects(this.pawns, true)
+
+    if (intersects.length > 0) {
+      const clickedPawn = intersects[0].object
+      console.log(`Kolor pionka:  ${clickedPawn.color}`)
     }
   }
 }

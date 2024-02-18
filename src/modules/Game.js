@@ -25,20 +25,20 @@ const pionki = [
   [1, 0, 1, 0, 1, 0, 1, 0],
   [0, 1, 0, 1, 0, 1, 0, 1],
 
-];
-const container = document.getElementById("root");
-const scene = new Scene();
-const renderer = new Renderer(scene, container);
-const camera = new Camera(renderer.threeRenderer);
-const ico = new Ico(scene);
+]
+const container = document.getElementById("root")
+const scene = new Scene()
+const renderer = new Renderer(scene, container)
+const camera = new Camera(renderer.threeRenderer)
+const ico = new Ico(scene)
 const pawn = new Pawn()
-console.log("pawn", pawn.type);
+console.log("pawn", pawn.type)
 
 
 const GameObject = {
   render() {
-    renderer.render(scene, camera.threeCamera);
-    requestAnimationFrame(GameObject.render);
+    renderer.render(scene, camera.threeCamera)
+    requestAnimationFrame(GameObject.render)
   },
 };
-export { GameObject, pionki, szachownica, renderer, camera, scene, ico };
+export { GameObject, pionki, szachownica, renderer, camera, scene, ico }
