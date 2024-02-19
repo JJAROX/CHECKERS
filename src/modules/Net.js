@@ -79,6 +79,8 @@ const allNetFunctions = {
                       usersArray = true
                     } else if (usersArray === true) {
                       clearInterval(interval)
+                      console.log(data, usersArray);
+                      document.addEventListener('mousedown', (event) => plainGeometry.onMouseDown(event, data, usersArray));
                     }
                   })
                   .catch(error => console.error(error))
@@ -111,6 +113,8 @@ const allNetFunctions = {
             info.append(', grasz czarnymi')
             navbar.append(USER_ADDED)
             navbar.append(info)
+            let usersArray = false
+            document.addEventListener('mousedown', (event) => plainGeometry.onMouseDown(event, data, usersArray));
             camera.threeCamera.position.set(0, 29.5, -21);
             camera.threeCamera.lookAt(new Vector3(0, -28, 53));
             camera.updateSize(renderer);
@@ -124,9 +128,7 @@ const allNetFunctions = {
             TOO_MANY_USERS.classList.add('navbar-header')
             info.append(`Aktualnie gra już dwóch graczy, spróbuj następnym razem` + " ")
             info.appendChild(spanEl)
-            // info.style.alignSelf = 'center'
             info.style.color = 'red'
-            // navbar.style.justifyContent = 'center'
             navbar.append(TOO_MANY_USERS)
             navbar.append(info)
           }
