@@ -7,7 +7,7 @@ export default class Camera {
 
     this.threeCamera = new PerspectiveCamera(75, width / height, 1, 2000)
     this.threeCamera.position.set(0, 29.5, 91)
-    this.threeCamera.lookAt(new Vector3(0, 0, 53));
+    this.threeCamera.lookAt(new Vector3(0, 0, 53))
 
     this.updateSize(renderer)
 
@@ -17,6 +17,6 @@ export default class Camera {
   updateSize(renderer) {
     this.threeCamera.aspect = renderer.domElement.width / renderer.domElement.height
     this.threeCamera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight)
   }
 }

@@ -34,7 +34,6 @@ const ico = new Ico(scene)
 const pawn = new Pawn()
 console.log("pawn", pawn.type)
 
-
 const GameObject = {
   render() {
     renderer.render(scene, camera.threeCamera)

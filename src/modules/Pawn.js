@@ -12,13 +12,18 @@ export default class Pawn extends Mesh {
 
     this.pawnColor = pawnColor
 
-    this.originalPosition = new Vector3();
+    this.currentSquare = null
+
+    this.originalPosition = new Vector3()
 
     this.add(pawnMesh);
 
   }
   setColor(color) {
     this.children[0].material.color.set(color)
+  }
+  setCurrentSquare(square) {
+    this.currentSquare = square
   }
 }
 

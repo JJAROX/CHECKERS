@@ -123,3 +123,31 @@ body {
   height: 10vh;
   width: 5vw;
 }
+
+.round-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  position: absolute;
+  top: 10vh;
+  width: 100vw;
+  height: 90vh;
+  background-color: rgba(33, 33, 33, 0.9);
+  color: white;
+}
+
+.tour-info {
+  margin-top: 1.875rem;
+  font-size: 2.25rem;
+  width: 12rem;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.time-info {
+  margin-top: 15px;
+  font-size: 10rem;
+  text-align: center;
+  font-weight: bolder;
+}
